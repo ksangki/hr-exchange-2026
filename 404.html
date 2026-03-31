@@ -9,11 +9,13 @@
             var basePath = '/hr-exchange-2026';
             var path = window.location.pathname;
             
-            if (path === basePath || path === basePath + '/') {
-                window.location.replace(basePath + '/#/');
+            var remaining = path.replace(basePath, '');
+            var hashPath = remaining.replace(/^\//, '').replace(/\/$/, '');
+            
+            if (hashPath) {
+                window.location.replace(basePath + '/#/' + hashPath);
             } else {
-                var remaining = path.replace(basePath, '');
-                window.location.replace(basePath + '/#/' + remaining.replace(/^\//, ''));
+                window.location.replace(basePath + '/#/');
             }
         })();
     </script>
