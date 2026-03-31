@@ -17,12 +17,12 @@
         
         if (path.startsWith(basePath)) {
           var remaining = path.replace(basePath, '');
-          var hashPath = remaining.replace(/^\//, '').replace(/\/$/, '');
+          var cleanPath = remaining.replace(/^\//, '').replace(/\/$/, '');
           
-          if (hashPath) {
-            window.location.replace(basePath + '/#/' + hashPath);
+          if (cleanPath) {
+            window.location.replace(basePath + '/' + cleanPath);
           } else {
-            window.location.replace(basePath + '/#/');
+            window.location.replace(basePath + '/');
           }
         }
       })();
