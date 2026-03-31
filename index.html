@@ -13,30 +13,12 @@
     <script>
       (function() {
         var basePath = '/hr-exchange-2026';
-        var origPushState = history.pushState;
-        var origReplaceState = history.replaceState;
+        var path = window.location.pathname;
         
-        history.pushState = function() {
-          var path = arguments[2] || '';
-          if (path && !path.startsWith(basePath)) {
-            arguments[2] = basePath + (path.startsWith('/') ? path : '/' + path);
-          }
-          return origPushState.apply(this, arguments);
-        };
-        
-        history.replaceState = function() {
-          var path = arguments[2] || '';
-          if (path && !path.startsWith(basePath)) {
-            arguments[2] = basePath + (path.startsWith('/') ? path : '/' + path);
-          }
-          return origReplaceState.apply(this, arguments);
-        };
-        
-        window.addEventListener('popstate', function() {
-          if (!window.location.pathname.startsWith(basePath)) {
-            window.location.pathname = basePath + window.location.pathname;
-          }
-        });
+        if (path === '/' || !path.startsWith(basePath)) {
+          var hash = window.location.hash || '';
+          window.location.replace(basePath + '/' + hash.replace(/^#\/?/, ''));
+        }
       })();
     </script>
     <script type="module" crossorigin src="/hr-exchange-2026/assets/index-BSMxclzq.js"></script>
