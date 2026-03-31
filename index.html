@@ -15,15 +15,16 @@
         var basePath = '/hr-exchange-2026';
         var path = window.location.pathname;
         
-        if (path.startsWith(basePath)) {
-          var remaining = path.replace(basePath, '');
-          var cleanPath = remaining.replace(/^\//, '').replace(/\/$/, '');
-          
-          if (cleanPath) {
-            window.location.replace(basePath + '/' + cleanPath);
-          } else {
-            window.location.replace(basePath + '/');
-          }
+        if (path.startsWith(basePath + '/') || path === basePath) {
+          var remaining = path.replace(basePath, '') || '/';
+          Object.defineProperty(window, 'location', {
+            configurable: true,
+            get: function() {
+              var loc = new URL(location.href);
+              loc.pathname = remaining;
+              return loc;
+            }
+          });
         }
       })();
     </script>
