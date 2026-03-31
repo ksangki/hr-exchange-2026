@@ -10,38 +10,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <script>
-      (function() {
-        var basePath = '/hr-exchange-2026';
-        var pathname = window.location.pathname;
-        var hash = window.location.hash;
-        
-        if (pathname === basePath || pathname.startsWith(basePath + '/')) {
-          if (!hash || hash === '#') {
-            window.location.replace(pathname + '#/');
-            return;
-          }
-          
-          var origPush = history.pushState;
-          var origReplace = history.replaceState;
-          var origLocation = location;
-          
-          history.pushState = function(state, title, url) {
-            if (url && url.startsWith('/') && !url.startsWith(basePath)) {
-              url = basePath + url;
-            }
-            return origPush.call(this, state, title, url);
-          };
-          
-          history.replaceState = function(state, title, url) {
-            if (url && url.startsWith('/') && !url.startsWith(basePath)) {
-              url = basePath + url;
-            }
-            return origReplace.call(this, state, title, url);
-          };
-        }
-      })();
-    </script>
     <script type="module" crossorigin src="/hr-exchange-2026/assets/index-BSMxclzq.js"></script>
     <link rel="stylesheet" crossorigin href="/hr-exchange-2026/assets/index-CMEhmafH.css">
   </head>

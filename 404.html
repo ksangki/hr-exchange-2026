@@ -4,27 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HR Exchange 2026</title>
-    <script>
-        (function() {
-            var basePath = '/hr-exchange-2026';
-            var path = window.location.pathname;
-            
-            if (path.startsWith(basePath + '/') || path === basePath) {
-                var remaining = path.replace(basePath, '') || '/';
-                Object.defineProperty(window, 'location', {
-                    configurable: true,
-                    get: function() {
-                        var loc = new URL(location.href);
-                        loc.pathname = remaining;
-                        return loc;
-                    }
-                });
-            }
-        })();
-    </script>
 </head>
 <body>
     <p>Redirecting...</p>
-    <p>If not redirected, <a href="/hr-exchange-2026/">click here to go home</a>.</p>
+    <script>
+        var basePath = '/hr-exchange-2026';
+        var path = window.location.pathname;
+        var hash = window.location.hash;
+        
+        var target = basePath;
+        if (path && path !== basePath) {
+            target = path;
+        }
+        if (hash && hash !== '#') {
+            target = target + hash;
+        } else {
+            target = target + '/';
+        }
+        
+        window.location.replace(target);
+    </script>
 </body>
 </html>
