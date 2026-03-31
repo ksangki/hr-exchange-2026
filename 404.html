@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Exchange 2026</title>
+    <script>
+        // Redirect to index.html with the original path preserved
+        var pathSegments = window.location.pathname.split('/').filter(Boolean);
+        var basePath = '/hr-exchange-2026';
+        
+        // Remove the base path from segments
+        if (pathSegments[0] === 'hr-exchange-2026') {
+            pathSegments.shift();
+        }
+        
+        // Redirect to index.html which will handle the routing
+        window.location.replace(basePath + '/#/' + pathSegments.join('/'));
+    </script>
+</head>
+<body>
+    Redirecting...
+</body>
+</html>
