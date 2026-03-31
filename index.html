@@ -13,53 +13,32 @@
     <script>
       (function() {
         var basePath = '/hr-exchange-2026';
-        var path = window.location.pathname;
-        var isHRPath = path === basePath || path.startsWith(basePath + '/');
+        var pathname = window.location.pathname;
+        var hash = window.location.hash;
         
-        if (isHRPath) {
-          var appPath = path.replace(basePath, '') || '/';
+        if (pathname === basePath || pathname.startsWith(basePath + '/')) {
+          if (!hash || hash === '#') {
+            window.location.replace(pathname + '#/');
+            return;
+          }
           
-          var origLocation = window.location;
-          var locationDescriptor = {
-            configurable: true,
-            get: function() {
-              var loc = new URL(origLocation.href);
-              loc.pathname = appPath;
-              loc.search = origLocation.search;
-              loc.hash = origLocation.hash;
-              return loc;
-            }
-          };
-          Object.defineProperty(window, 'location', locationDescriptor);
-          
-          var origPushState = history.pushState;
-          var origReplaceState = history.replaceState;
+          var origPush = history.pushState;
+          var origReplace = history.replaceState;
+          var origLocation = location;
           
           history.pushState = function(state, title, url) {
-            if (url && !url.toString().startsWith(basePath)) {
-              url = basePath + (url.toString().startsWith('/') ? url : '/' + url);
+            if (url && url.startsWith('/') && !url.startsWith(basePath)) {
+              url = basePath + url;
             }
-            return origPushState.call(this, state, title, url);
+            return origPush.call(this, state, title, url);
           };
           
           history.replaceState = function(state, title, url) {
-            if (url && !url.toString().startsWith(basePath)) {
-              url = basePath + (url.toString().startsWith('/') ? url : '/' + url);
+            if (url && url.startsWith('/') && !url.startsWith(basePath)) {
+              url = basePath + url;
             }
-            return origReplaceState.call(this, state, title, url);
+            return origReplace.call(this, state, title, url);
           };
-          
-          document.addEventListener('click', function(e) {
-            var a = e.target.closest('a');
-            if (!a) return;
-            var href = a.getAttribute('href');
-            if (href && href.startsWith('/') && !href.startsWith(basePath)) {
-              e.preventDefault();
-              var newUrl = basePath + href;
-              window.history.pushState(null, '', newUrl);
-              window.dispatchEvent(new PopStateEvent('popstate', {state: null}));
-            }
-          }, true);
         }
       })();
     </script>
