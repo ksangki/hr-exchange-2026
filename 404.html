@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HR Exchange 2026</title>
     <script>
-        // Redirect to index.html with the original path preserved
-        var pathSegments = window.location.pathname.split('/').filter(Boolean);
-        var basePath = '/hr-exchange-2026';
-        
-        // Remove the base path from segments
-        if (pathSegments[0] === 'hr-exchange-2026') {
-            pathSegments.shift();
-        }
-        
-        // Redirect to index.html which will handle the routing
-        window.location.replace(basePath + '/#/' + pathSegments.join('/'));
+        (function() {
+            var basePath = '/hr-exchange-2026';
+            var path = window.location.pathname;
+            
+            if (path === basePath || path === basePath + '/') {
+                window.location.replace(basePath + '/#/');
+            } else {
+                var remaining = path.replace(basePath, '');
+                window.location.replace(basePath + '/#/' + remaining.replace(/^\//, ''));
+            }
+        })();
     </script>
 </head>
 <body>
